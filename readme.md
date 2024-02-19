@@ -9,4 +9,4 @@ helm repo add blue-atlas https://charts.blue-atlas.de
 helm install -f <values-file.yaml> blue-atlas/<chartname>
 ```
 Available Charts:
-- `squest` - A Self-Service Portal on AWX maintained by HP
+- `librechat` - A Self-Service Portal on AWX maintained by HP

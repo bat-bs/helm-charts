@@ -1,0 +1,9 @@
+dependencies:
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 14.9.0
+- name: meilisearch
+  repository: https://meilisearch.github.io/meilisearch-kubernetes
+  version: 0.4.0
+digest: sha256:963e724acedfd5f556b7fa8a7ebd67b3a98f85449e6ee9c7102286d0c6391b6a
+generated: "2024-02-15T15:13:24.737416+01:00"
