@@ -1,6 +1,6 @@
 apiVersion: v2
 name: librechat
-description: A Helm chart for Kubernetes
+description: A Helm chart for LibreChat
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -21,6 +21,8 @@ version: 0.1.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "v0.6.9"
+
+home: https://blue-atlas.de
 
 dependencies:
   - name: mongodb
