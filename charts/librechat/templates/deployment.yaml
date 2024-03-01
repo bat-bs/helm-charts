@@ -64,10 +64,10 @@ spec:
       {{- if or .Values.librechat.configYamlContent .Values.librechat.existingConfigYaml }}
       - name: config-yaml
         configMap:
-        {{- if .Values.librechat.configYamlContent }}
-          name: {{ include "librechat.fullname" $ }}-config
-        {{- else if .Values.librechat.existingConfigYaml }}
+        {{- if .Values.librechat.existingConfigYaml }}
           name: {{ .Values.librechat.existingConfigYaml }}
+        {{- else if .Values.librechat.configYamlContent }}
+          name: {{ include "librechat.fullname" $ }}-config
         {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}
