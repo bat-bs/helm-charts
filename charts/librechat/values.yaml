@@ -5,7 +5,8 @@
 replicaCount: 1
 
 librechat:
-  config:
+# LibreChat allows Configuration in 2 Ways: Environment Variables and a Config file. For easier Deployment the needed values are predifined here but should be adjusted to your needs.
+  configEnv:
     PLUGIN_MODELS: gpt-4,gpt-4-turbo-preview,gpt-4-0125-preview,gpt-4-1106-preview,gpt-4-0613,gpt-3.5-turbo,gpt-3.5-turbo-0125,gpt-3.5-turbo-1106,gpt-3.5-turbo-0613
     DEBUG_PLUGINS: "true"
     # IMPORTANT -- GENERATE your own: openssl rand -hex 32 and openssl rand -hex 16 for CREDS_IV. Best Practise: Put into Secret. See existingSecretName
@@ -13,16 +14,99 @@ librechat:
     CREDS_IV: ac028c86ba23f4cd48165e0ca9f2c683
     JWT_SECRET: 16f8c0ef4a5d391b26034086c628469d3f9f497f08163ab9b40137092f2909ef
     JWT_REFRESH_SECRET: eaa5191f2914e30b9387fd84e254e4ba6fc51b4654968a9b0803b456a54b8418
-    
     # Set Config Params here
     # ENV_NAME: env-value
 
-  existingSecretName: "librechat-credentials-env"
     # existing Secret for all envs/ only Passwords. Can be locally generated with: kubectl create secret generic librechat-secret-envs --from-env-file=.env.example --dry-run=client -o yaml > secret-envs.yaml
     ## For better maintainabillity, you can put all vars directly in the config Section and only overwrite Secrets with this if nessesary.
     # Required Values:
     # - MEILI_MASTER_KEY
+  existingSecretName: "librechat-credentials-env"
+  
+  # # For adding a custom config yaml-file you can set the contents in this var
+  configYamlContent: ""
+  # configYamlContent: |
+    # version: 1.0.3
+    # cache: true
+    # # fileStrategy: "firebase"  # If using Firebase CDN
+    # fileConfig:
+    #   endpoints:
+    #     assistants:
+    #       fileLimit: 5
+    #       fileSizeLimit: 10  # Maximum size for an individual file in MB
+    #       totalSizeLimit: 50  # Maximum total size for all files in a single request in MB
+    #       supportedMimeTypes:
+    #         - "image/.*"
+    #         - "application/pdf"
+    #     openAI:
+    #       disabled: true  # Disables file uploading to the OpenAI endpoint
+    #     default:
+    #       totalSizeLimit: 20
+    #     YourCustomEndpointName:
+    #       fileLimit: 2
+    #       fileSizeLimit: 5
+    #   serverFileSizeLimit: 100  # Global server file size limit in MB
+    #   avatarSizeLimit: 2  # Limit for user avatar image size in MB
+    # rateLimits:
+    #   fileUploads:
+    #     ipMax: 100
+    #     ipWindowInMinutes: 60  # Rate limit window for file uploads per IP
+    #     userMax: 50
+    #     userWindowInMinutes: 60  # Rate limit window for file uploads per user
+    # registration:
+    #   socialLogins: ["google", "facebook", "github", "discord", "openid"]
+    #   allowedDomains:
+    #     - "example.com"
+    #     - "anotherdomain.com"
+    # endpoints:
+    #   assistants:
+    #     disableBuilder: false # Disable Assistants Builder Interface by setting to `true`
+    #     pollIntervalMs: 750  # Polling interval for checking assistant updates
+    #     timeoutMs: 180000  # Timeout for assistant operations
+    #     # Should only be one or the other, either `supportedIds` or `excludedIds`
+    #     supportedIds: ["asst_supportedAssistantId1", "asst_supportedAssistantId2"]
+    #     # excludedIds: ["asst_excludedAssistantId"]
+    #   custom:
+    #     - name: "Mistral"
+    #       apiKey: "${MISTRAL_API_KEY}"
+    #       baseURL: "https://api.mistral.ai/v1"
+    #       models:
+    #         default: ["mistral-tiny", "mistral-small", "mistral-medium"]
+    #         fetch: true  # Attempt to dynamically fetch available models
+    #         userIdQuery: false
+    #       iconURL: "https://example.com/mistral-icon.png"
+    #       titleConvo: true
+    #       titleMethod: "completion"
+    #       titleModel: "mistral-tiny"
+    #       summarize: true
+    #       summaryModel: "mistral-summary"
+    #       forcePrompt: false
+    #       modelDisplayLabel: "Mistral AI"
+    #       addParams:
+    #         safe_prompt: true
+    #       dropParams:
+    #         - "stop"
+    #         - "user"
+    #         - "presence_penalty"
+    #         - "frequency_penalty"
+    #       # headers:
+    #       #    x-custom-header: "${CUSTOM_HEADER_VALUE}"
+    #     - name: "OpenRouter"
+    #       apiKey: "${OPENROUTER_API_KEY}"
+    #       baseURL: "https://openrouter.ai/api/v1"
+    #       models:
+    #         default: ["gpt-3.5-turbo"]
+    #         fetch: false
+    #       titleConvo: true
+    #       titleModel: "gpt-3.5-turbo"
+    #       summarize: false
+    #       forcePrompt: false
+    #       modelDisplayLabel: "OpenRouter"
+    #       dropParams:
+    #         - "frequency_penalty"
 
+# # name of existing Yaml configmap, key must be librechat.yaml
+  existingConfigYaml: ""
 
 image:
   repository: danny-avila/librechat
