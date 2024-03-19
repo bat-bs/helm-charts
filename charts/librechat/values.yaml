@@ -108,12 +108,17 @@ librechat:
 # # name of existing Yaml configmap, key must be librechat.yaml
   existingConfigYaml: ""
 
+  # Volume used to store image Files uploaded to the Web UI
+  imageVolume:
+    size: 10G
+
 image:
   repository: danny-avila/librechat
   registry: ghcr.io
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
+
 
 imagePullSecrets: []
 nameOverride: ""
