@@ -4,7 +4,43 @@
 
 replicaCount: 1
 
+# Required as vectorDB for RAG
+postgresql:
+  enabled: true
+  primary:
+    containerSecurityContext:
+      runAsNonRoot: false
+  auth:
+    database: librechat-vectordb
+    username: librechat
+    # define a secret with values for "postgres-password", "password" (user Password)  and "replication-password" or add values directly
+    existingSecret: "librechat-vectordb"
+  configurationCM:
+    initdbScripts:
+      install_pgvector.sh: |
+        #!/bin/sh
+        install_packages git build-essential
+        cd /tmp
+        git clone --branch v0.4.1 https://github.com/pgvector/pgvector.git
+        cd pgvector
+        export PG_CONFIG=/opt/bitnami/postgresql/bin/pg_config
+        make
+        make install
+        PGPASSWORD=$POSTGRES_PASSWORD psql -U postgres -c "CREATE EXTENSION vector;"
+
+
+
 librechat:
+
+# provide context-aware responses based on user-uploaded files
+  rag:
+    enabled: true
+    # Currently only lite is supported. This allows leveraging RAGs from Remote Endpoint like azure or 
+    mode: lite
+
+
+
+
 # LibreChat allows Configuration in 2 Ways: Environment Variables and a Config file. For easier Deployment the needed values are predifined here but should be adjusted to your needs.
   configEnv:
     PLUGIN_MODELS: gpt-4,gpt-4-turbo-preview,gpt-4-0125-preview,gpt-4-1106-preview,gpt-4-0613,gpt-3.5-turbo,gpt-3.5-turbo-0125,gpt-3.5-turbo-1106,gpt-3.5-turbo-0613
@@ -211,6 +247,8 @@ mongodb:
 
 meilisearch:
   enabled: true
+  image: 
+    tag: "v1.7.3"
   auth:
     # Use an existing Kubernetes secret for the MEILI_MASTER_KEY
     existingMasterKeySecret: "librechat-credentials-env"

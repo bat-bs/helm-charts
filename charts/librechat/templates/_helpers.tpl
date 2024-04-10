@@ -44,6 +44,15 @@ app.kubernetes.io/name: {{ include "librechat.fullname" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
+
+{{/*
+RAG Selector labels
+*/}}
+{{- define "rag.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "librechat.fullname" . }}-rag
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
 {{/*
 Create the name of the service account to use
 */}}

@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "librechat.fullname" $ }}-rag
+  labels:
+    {{- include "librechat.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "rag.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "librechat.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ include "librechat.fullname" $ }}-rag
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.rag.image.registry }}/{{ .Values.rag.image.repository }}:{{ .Values.rag.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          envFrom:
+          {{- if .Values.librechat.existingSecretName }}
+          - secretRef:
+              name: {{ if .Values.rag.existingSecretName }}{{ .Values.rag.existingSecretName }}{{ else }} librechat-vectordb {{ end }}
+              optional: true
+          {{- end }}
+      volumes:
+      {{- if or .Values.librechat.configYamlContent .Values.librechat.existingConfigYaml }}
+      - name: config-yaml
+        configMap:
+        {{- if .Values.librechat.existingConfigYaml }}
+          name: {{ .Values.librechat.existingConfigYaml }}
+        {{- else if .Values.librechat.configYamlContent }}
+          name: {{ include "librechat.fullname" $ }}-config
+        {{- end }}
+      {{- end }}
+      {{- if .Values.librechat.imageVolume }}
+      - name: image-volume
+        persistentVolumeClaim:
+          claimName: {{ include "librechat.fullname" $ }}-images
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
