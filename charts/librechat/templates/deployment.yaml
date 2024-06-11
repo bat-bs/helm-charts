@@ -59,9 +59,9 @@ spec:
           envFrom:
           - configMapRef:
               name: {{ include "librechat.fullname" $ }}-configenv
-          {{- if .Values.librechat.existingSecretName }}
+          {{- if .Values.global.librechat.existingSecretName }}
           - secretRef:
-              name: {{ .Values.librechat.existingSecretName }}
+              name: {{ .Values.global.librechat.existingSecretName }}
               optional: true
           {{- end }}
       volumes:

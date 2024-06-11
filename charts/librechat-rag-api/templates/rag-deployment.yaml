@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "librechat.fullname" $ }}-rag
+  name: {{ include "rag.fullname" $ }}
   labels:
-    {{- include "librechat.labels" . | nindent 4 }}
+    {{- include "rag.labels" . | nindent 4 }}
+    rag-component: rag
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.rag.replicaCount }}
   selector:
     matchLabels:
       {{- include "rag.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
-        {{- with .Values.podAnnotations }}
+        {{- with .Values.rag.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "librechat.labels" . | nindent 8 }}
-        {{- with .Values.podLabels }}
+        {{- include "rag.selectorLabels" . | nindent 8 }}
+        {{- with .Values.rag.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
@@ -28,10 +29,10 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ include "librechat.fullname" $ }}-rag
+        - name: {{ include "rag.fullname" $ }}-rag
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.rag.image.registry }}/{{ .Values.rag.image.repository }}:{{ .Values.rag.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -44,26 +45,31 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
-          {{- if .Values.librechat.existingSecretName }}
+          - configMapRef:
+              name: {{ include "rag.fullname" $ }}-config
+          {{- if .Values.rag.existingSecret }}
           - secretRef:
-              name: {{ if .Values.rag.existingSecretName }}{{ .Values.rag.existingSecretName }}{{ else }} librechat-vectordb {{ end }}
-              optional: true
+              name: {{ .Values.rag.existingSecret }}
           {{- end }}
+          env:
+          {{- if .Values.postgresql.auth.existingSecret }}
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.postgresql.auth.existingSecret }}
+                key: {{ .Values.postgresql.auth.existingSecretKey }}
+          {{- end }}
+          {{- if .Values.global.librechat.existingSecretName }}
+          - name: OPENAI_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.global.librechat.existingSecretName }}
+                key: {{ .Values.global.librechat.existingSecretApiKey }}
+          {{- end }}
+ 
+
+
       volumes:
-      {{- if or .Values.librechat.configYamlContent .Values.librechat.existingConfigYaml }}
-      - name: config-yaml
-        configMap:
-        {{- if .Values.librechat.existingConfigYaml }}
-          name: {{ .Values.librechat.existingConfigYaml }}
-        {{- else if .Values.librechat.configYamlContent }}
-          name: {{ include "librechat.fullname" $ }}-config
-        {{- end }}
-      {{- end }}
-      {{- if .Values.librechat.imageVolume }}
-      - name: image-volume
-        persistentVolumeClaim:
-          claimName: {{ include "librechat.fullname" $ }}-images
-      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

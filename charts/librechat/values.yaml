@@ -4,43 +4,15 @@
 
 replicaCount: 1
 
-# Required as vectorDB for RAG
-postgresql:
-  enabled: true
-  primary:
-    containerSecurityContext:
-      runAsNonRoot: false
-  auth:
-    database: librechat-vectordb
-    username: librechat
-    # define a secret with values for "postgres-password", "password" (user Password)  and "replication-password" or add values directly
-    existingSecret: "librechat-vectordb"
-  configurationCM:
-    initdbScripts:
-      install_pgvector.sh: |
-        #!/bin/sh
-        install_packages git build-essential
-        cd /tmp
-        git clone --branch v0.4.1 https://github.com/pgvector/pgvector.git
-        cd pgvector
-        export PG_CONFIG=/opt/bitnami/postgresql/bin/pg_config
-        make
-        make install
-        PGPASSWORD=$POSTGRES_PASSWORD psql -U postgres -c "CREATE EXTENSION vector;"
 
 
+global:
+  librechat:
+    existingSecretName: "librechat-credentials-env"
+    # Used for Setting the Right Key, can be something like AZURE_API_KEY, if Azure OpenAI is used
+    existingSecretApiKey: OPENAI_API_KEY
 
 librechat:
-
-# provide context-aware responses based on user-uploaded files
-  rag:
-    enabled: true
-    # Currently only lite is supported. This allows leveraging RAGs from Remote Endpoint like azure or 
-    mode: lite
-
-
-
-
 # LibreChat allows Configuration in 2 Ways: Environment Variables and a Config file. For easier Deployment the needed values are predifined here but should be adjusted to your needs.
   configEnv:
     PLUGIN_MODELS: gpt-4,gpt-4-turbo-preview,gpt-4-0125-preview,gpt-4-1106-preview,gpt-4-0613,gpt-3.5-turbo,gpt-3.5-turbo-0125,gpt-3.5-turbo-1106,gpt-3.5-turbo-0613
@@ -148,6 +120,13 @@ librechat:
   imageVolume:
     size: 10G
 
+# only lite RAG is supported
+librechat-rag-api:
+  enabled: false
+  # can be azure, openai, huggingface or huggingfacetei
+  embeddingsProvider: openai
+
+
 image:
   repository: danny-avila/librechat
   registry: ghcr.io
@@ -247,6 +226,8 @@ mongodb:
 
 meilisearch:
   enabled: true
+  persistence:
+    enabled: true
   image: 
     tag: "v1.7.3"
   auth:
