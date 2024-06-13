@@ -14,7 +14,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.3.0
+version: 1.3.1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -28,14 +28,14 @@ home: https://blue-atlas.de
 
 dependencies:
   - name: mongodb
-    version: "15.0.2"
+    version: "15.6.6"
     condition: mongodb.enabled
     repository: "https://charts.bitnami.com/bitnami"
   - name: meilisearch
-    version: "0.5.0"
+    version: "0.7.0"
     condition: meilisearch.enabled
     repository: "https://meilisearch.github.io/meilisearch-kubernetes"
   - name: librechat-rag-api
     version: "0.1.1"
     condition: librechat-rag-api.enabled
-    repository: "https://charts.blue-atlas.de"
+    repository: file://../librechat-rag-api #"https://charts.blue-atlas.de"

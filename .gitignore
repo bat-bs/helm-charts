@@ -1,7 +1,7 @@
 # Compiled Helm chart dependencies
 charts/**/Chart.lock
 charts/**/charts/
-
+charts/**/.values.yaml
 # Testing
 __snapshot__/
 

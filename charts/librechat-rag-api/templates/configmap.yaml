@@ -5,5 +5,5 @@ metadata:
 data:
   POSTGRES_DB: {{ .Values.postgresql.auth.database }}
   POSTGRES_USER: {{ .Values.postgresql.auth.username }}
-  DB_HOST: {{ include "common.names.fullname" .Subcharts.postgresql }}.{{ .Release.Namespace | lower }}.svc.cluster.local
-  {{- toYaml .Values.rag.configEnv | nindent 2 }}
+  DB_HOST: {{ .Release.Name }}-postgresql.{{ .Release.Namespace | lower }}.svc.cluster.local
+  {{- toYaml .Values.rag.configEnv | nindent 2 }} 
