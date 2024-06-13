@@ -4,6 +4,14 @@
 
 replicaCount: 1
 
+
+
+global:
+  librechat:
+    existingSecretName: "librechat-credentials-env"
+    # Used for Setting the Right Key, can be something like AZURE_API_KEY, if Azure OpenAI is used
+    existingSecretApiKey: OPENAI_API_KEY
+
 librechat:
 # LibreChat allows Configuration in 2 Ways: Environment Variables and a Config file. For easier Deployment the needed values are predifined here but should be adjusted to your needs.
   configEnv:
@@ -112,6 +120,13 @@ librechat:
   imageVolume:
     size: 10G
 
+# only lite RAG is supported
+librechat-rag-api:
+  enabled: false
+  # can be azure, openai, huggingface or huggingfacetei
+  embeddingsProvider: openai
+
+
 image:
   repository: danny-avila/librechat
   registry: ghcr.io
@@ -211,6 +226,10 @@ mongodb:
 
 meilisearch:
   enabled: true
+  persistence:
+    enabled: true
+  image: 
+    tag: "v1.7.3"
   auth:
     # Use an existing Kubernetes secret for the MEILI_MASTER_KEY
     existingMasterKeySecret: "librechat-credentials-env"

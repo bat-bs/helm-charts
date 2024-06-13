@@ -1,5 +1,5 @@
 apiVersion: v2
-name: librechat
+name: librechat-rag-api
 description: A Helm chart for LibreChat
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -14,28 +14,20 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.3.0
+version: 0.0.1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 
-# renovate: image=ghcr.io/danny-avila/librechat
-appVersion: "v0.7.2"
+# renovate: image=ghcr.io/danny-avila/librechat-rag-api-dev
+appVersion: "ad107dc19b0a95ecbe5d936d26f3b46fff4494f4"
 
 home: https://blue-atlas.de
 
 dependencies:
-  - name: mongodb
-    version: "15.0.2"
-    condition: mongodb.enabled
-    repository: "https://charts.bitnami.com/bitnami"
-  - name: meilisearch
-    version: "0.5.0"
-    condition: meilisearch.enabled
-    repository: "https://meilisearch.github.io/meilisearch-kubernetes"
-  - name: librechat-rag-api
-    version: "0.0.1"
-    condition: librechat-rag-api.enabled
-    repository: "https://blue-atlas.de"
+  - name: postgresql
+    version: "15.3.2"
+    condition: postgresql.enabled
+    repository: https://charts.bitnami.com/bitnami
