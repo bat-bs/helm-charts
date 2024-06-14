@@ -38,4 +38,4 @@ dependencies:
   - name: librechat-rag-api
     version: "0.1.2"
     condition: librechat-rag-api.enabled
-    repository: file://../charts/librechat-rag-api #"https://charts.blue-atlas.de"
+    repository: file://../librechat-rag-api #"https://charts.blue-atlas.de"
