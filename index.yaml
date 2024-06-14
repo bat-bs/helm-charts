@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   librechat:
   - apiVersion: v2
+    appVersion: v0.7.2
+    created: "2024-06-14T15:06:19.448578024Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.6.6
+    - condition: meilisearch.enabled
+      name: meilisearch
+      repository: https://meilisearch.github.io/meilisearch-kubernetes
+      version: 0.7.0
+    - condition: librechat-rag-api.enabled
+      name: librechat-rag-api
+      repository: file://../librechat-rag-api
+      version: 0.1.3
+    description: A Helm chart for LibreChat
+    digest: d9268d6149728312b5a6a380a133760c220747db2e4b392a0be152b9c3d2aff3
+    home: https://blue-atlas.de
+    name: librechat
+    type: application
+    urls:
+    - https://github.com/bat-bs/helm-charts/releases/download/librechat-1.3.2/librechat-1.3.2.tgz
+    version: 1.3.2
+  - apiVersion: v2
     appVersion: v0.7.4
     created: "2024-06-14T12:06:38.686724969Z"
     dependencies:
@@ -168,6 +192,22 @@ entries:
   librechat-rag-api:
   - apiVersion: v2
     appVersion: v0.1.0
+    created: "2024-06-14T15:06:19.556216919Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.5
+    description: A Helm chart for LibreChat
+    digest: 3dc4d705f8661a76b0b42e0d4417055f68c7b5ea4ef19e5456456f1f29ff474a
+    home: https://blue-atlas.de
+    name: librechat-rag-api
+    type: application
+    urls:
+    - https://github.com/bat-bs/helm-charts/releases/download/librechat-rag-api-0.1.3/librechat-rag-api-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: v0.1.0
     created: "2024-06-14T12:06:38.82958888Z"
     dependencies:
     - condition: postgresql.enabled
@@ -198,4 +238,4 @@ entries:
     urls:
     - https://github.com/bat-bs/helm-charts/releases/download/librechat-rag-api-0.0.1/librechat-rag-api-0.0.1.tgz
     version: 0.0.1
-generated: "2024-06-14T12:06:38.829624707Z"
+generated: "2024-06-14T15:06:19.556277964Z"
