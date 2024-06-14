@@ -118,7 +118,9 @@ librechat:
 
   # Volume used to store image Files uploaded to the Web UI
   imageVolume:
+    enabled: true
     size: 10G
+    # storageClassName: 
 
 # only lite RAG is supported
 librechat-rag-api:
