@@ -61,7 +61,6 @@ spec:
           {{- end }}
           {{- if .Values.global.librechat.existingSecretName }}
           - name: OPENAI_API_KEY
-            optional: true
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.global.librechat.existingSecretName }}
