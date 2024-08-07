@@ -14,7 +14,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.4.4
+version: 1.5.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -28,7 +28,7 @@ home: https://blue-atlas.de
 
 dependencies:
   - name: mongodb
-    version: "15.6.6"
+    version: "15.6.18"
     condition: mongodb.enabled
     repository: "https://charts.bitnami.com/bitnami"
   - name: meilisearch
