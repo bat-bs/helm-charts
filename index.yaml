@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   librechat:
   - apiVersion: v2
+    appVersion: v0.7.4
+    created: "2024-08-14T10:28:35.435222545Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.6.18
+    - condition: meilisearch.enabled
+      name: meilisearch
+      repository: https://meilisearch.github.io/meilisearch-kubernetes
+      version: 0.7.0
+    - condition: librechat-rag-api.enabled
+      name: librechat-rag-api
+      repository: file://../librechat-rag-api
+      version: 0.1.5
+    description: A Helm chart for LibreChat
+    digest: b502c4bb5569711880207cbb14ed1366bd0b26f7e6ea8b60a23cd04b9fdbd486
+    home: https://blue-atlas.de
+    name: librechat
+    type: application
+    urls:
+    - https://github.com/bat-bs/helm-charts/releases/download/librechat-1.5.0/librechat-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v2
     appVersion: v0.7.3
     created: "2024-06-17T13:56:08.071941704Z"
     dependencies:
@@ -239,6 +263,22 @@ entries:
     version: 0.1.1
   librechat-rag-api:
   - apiVersion: v2
+    appVersion: v0.2.0
+    created: "2024-08-14T10:28:35.604709745Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.21
+    description: A Helm chart for LibreChat
+    digest: d069210f2646fc77a572a640867e5dbf5b049fa6e9901276fd4b53a1766a216e
+    home: https://blue-atlas.de
+    name: librechat-rag-api
+    type: application
+    urls:
+    - https://github.com/bat-bs/helm-charts/releases/download/librechat-rag-api-0.1.5/librechat-rag-api-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
     appVersion: v0.1.0
     created: "2024-06-17T13:56:08.223498716Z"
     dependencies:
@@ -302,4 +342,4 @@ entries:
     urls:
     - https://github.com/bat-bs/helm-charts/releases/download/librechat-rag-api-0.0.1/librechat-rag-api-0.0.1.tgz
     version: 0.0.1
-generated: "2024-06-17T13:56:08.223536968Z"
+generated: "2024-08-14T10:28:35.6047817Z"
