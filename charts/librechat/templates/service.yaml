@@ -4,6 +4,8 @@ metadata:
   name: {{ include "librechat.fullname" . }}
   labels:
     {{- include "librechat.labels" . | nindent 4 }}
+  annotations:
+  {{ .Values.service.annotations | toYaml | indent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
