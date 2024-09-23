@@ -120,6 +120,7 @@ librechat:
   imageVolume:
     enabled: true
     size: 10G
+    accessModes: ReadWriteOnce
     # storageClassName: 
 
 # only lite RAG is supported
