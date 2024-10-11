@@ -22,7 +22,7 @@ version: 0.1.5
 # It is recommended to use it with quotes.
 
 # renovate: image=ghcr.io/danny-avila/librechat-rag-api-dev
-appVersion: "v0.2.0"
+appVersion: "v0.3.0"
 
 home: https://blue-atlas.de
 
