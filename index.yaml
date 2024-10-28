@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   librechat:
   - apiVersion: v2
+    appVersion: v0.7.5
+    created: "2024-10-28T16:26:48.183520622Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.2.0
+    - condition: meilisearch.enabled
+      name: meilisearch
+      repository: https://meilisearch.github.io/meilisearch-kubernetes
+      version: 0.7.0
+    - condition: librechat-rag-api.enabled
+      name: librechat-rag-api
+      repository: file://../librechat-rag-api
+      version: 0.2.0
+    description: A Helm chart for LibreChat
+    digest: e7f4feb8b902fea9a85675f54ffd9a2bdc08831775104ad25e2c292aeb491db0
+    home: https://blue-atlas.de
+    name: librechat
+    type: application
+    urls:
+    - https://github.com/bat-bs/helm-charts/releases/download/librechat-1.7.0/librechat-1.7.0.tgz
+    version: 1.7.0
+  - apiVersion: v2
     appVersion: v0.7.4
     created: "2024-09-23T15:25:06.795774815Z"
     dependencies:
@@ -287,6 +311,22 @@ entries:
     version: 0.1.1
   librechat-rag-api:
   - apiVersion: v2
+    appVersion: v0.3.0
+    created: "2024-10-28T16:26:48.284809099Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.38
+    description: A Helm chart for LibreChat
+    digest: 76656f70839583d7e1ac03479e6075901a7276bf440fb638492bf5369ff3d1a3
+    home: https://blue-atlas.de
+    name: librechat-rag-api
+    type: application
+    urls:
+    - https://github.com/bat-bs/helm-charts/releases/download/librechat-rag-api-0.2.0/librechat-rag-api-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: v0.2.0
     created: "2024-08-14T10:28:35.604709745Z"
     dependencies:
@@ -366,4 +406,4 @@ entries:
     urls:
     - https://github.com/bat-bs/helm-charts/releases/download/librechat-rag-api-0.0.1/librechat-rag-api-0.0.1.tgz
     version: 0.0.1
-generated: "2024-09-23T15:25:06.795880522Z"
+generated: "2024-10-28T16:26:48.284943781Z"
