@@ -142,6 +142,15 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+
+lifecycle: {}
+# example for adding a banner // see https://github.com/danny-avila/LibreChat/pull/3952
+#   postStart:
+#     exec:
+#       command: ["/bin/sh", "-c", "npm run update-banner <displayFrom(Format: yyyy-mm-ddTHH:MM:SSZ)> <displayTo(Format: yyyy-mm-ddTHH:MM:SSZ)> <message> <isPublic(true/false)>"]
+
+
+
 podAnnotations: {}
 podLabels: {}
 
