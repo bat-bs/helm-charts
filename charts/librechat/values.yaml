@@ -226,6 +226,10 @@ tolerations: []
 
 affinity: {}
 
+# A strategy for LibreChat deployment updates
+updateStrategy:
+  type: RollingUpdate
+
 # MongoDB Parameters
 mongodb:
   enabled: true
