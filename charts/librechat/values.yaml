@@ -226,7 +226,7 @@ tolerations: []
 
 affinity: {}
 
-# A strategy for LibreChat deployment updates
+# Strategy for LibreChat deployment updates
 updateStrategy:
   type: RollingUpdate
 
