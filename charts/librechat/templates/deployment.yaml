@@ -61,6 +61,9 @@ spec:
           - name: image-volume
             mountPath: "/app/client/public/images"
           {{- end }}
+          {{- if .Values.volumeMounts }}
+          {{- toYaml .Values.volumeMounts | nindent 10 }}
+          {{- end }}
           envFrom:
           - configMapRef:
               name: {{ include "librechat.fullname" $ }}-configenv
@@ -83,6 +86,9 @@ spec:
       - name: image-volume
         persistentVolumeClaim:
           claimName: {{ include "librechat.fullname" $ }}-images
+      {{- end }}
+      {{- if .Values.volumes }}
+      {{- toYaml .Values.volumes | nindent 6 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
