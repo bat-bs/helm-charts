@@ -67,7 +67,11 @@ spec:
                 key: {{ .Values.global.librechat.existingSecretApiKey }}
                 optional: true
           {{- end }}
- 
+        {{- with .Values.extraContainers }}
+        {{- range . }}
+        - {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- end }} 
 
 
       volumes:
