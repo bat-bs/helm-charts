@@ -80,4 +80,4 @@ tolerations: []
 
 affinity: {}
 
-extraContainers: []
+extraContainers: {}
