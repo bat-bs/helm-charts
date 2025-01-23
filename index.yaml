@@ -3,6 +3,30 @@ entries:
   librechat:
   - apiVersion: v2
     appVersion: v0.7.6
+    created: "2025-01-23T01:39:04.393009555Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.3.0
+    - condition: meilisearch.enabled
+      name: meilisearch
+      repository: https://meilisearch.github.io/meilisearch-kubernetes
+      version: 0.7.0
+    - condition: librechat-rag-api.enabled
+      name: librechat-rag-api
+      repository: file://../librechat-rag-api
+      version: 0.3.0
+    description: A Helm chart for LibreChat
+    digest: d281c0bf8c0b0e7b029674ffffdd306075534444ba8f416c2f04a7f8efdee753
+    home: https://blue-atlas.de
+    name: librechat
+    type: application
+    urls:
+    - https://github.com/bat-bs/helm-charts/releases/download/librechat-1.8.6/librechat-1.8.6.tgz
+    version: 1.8.6
+  - apiVersion: v2
+    appVersion: v0.7.6
     created: "2025-01-08T03:51:12.352960151Z"
     dependencies:
     - condition: mongodb.enabled
@@ -456,6 +480,22 @@ entries:
   librechat-rag-api:
   - apiVersion: v2
     appVersion: v0.3.0
+    created: "2025-01-23T01:39:04.529003611Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.38
+    description: A Helm chart for LibreChat
+    digest: 8cfe2ba3b491ec1ce46c28dc181b24b325133dbe4276b9dce7ad00ba18ab8e40
+    home: https://blue-atlas.de
+    name: librechat-rag-api
+    type: application
+    urls:
+    - https://github.com/bat-bs/helm-charts/releases/download/librechat-rag-api-0.3.0/librechat-rag-api-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: v0.3.0
     created: "2025-01-08T03:51:12.458022863Z"
     dependencies:
     - condition: postgresql.enabled
@@ -614,4 +654,4 @@ entries:
     urls:
     - https://github.com/bat-bs/helm-charts/releases/download/librechat-rag-api-0.0.1/librechat-rag-api-0.0.1.tgz
     version: 0.0.1
-generated: "2025-01-08T03:51:12.458224637Z"
+generated: "2025-01-23T01:39:04.529189588Z"
