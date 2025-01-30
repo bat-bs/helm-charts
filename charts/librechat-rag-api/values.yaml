@@ -73,6 +73,9 @@ resources: {}
 #     path: /
 #     port: http
 
+volumeMounts: {}
+
+volumes: {}
 
 nodeSelector: {}
 
