@@ -73,6 +73,11 @@ resources: {}
 #     path: /
 #     port: http
 
+serviceAccount:
+  create: false
+  name: ""
+  annotations: {}
+
 volumeMounts: {}
 
 volumes: {}
