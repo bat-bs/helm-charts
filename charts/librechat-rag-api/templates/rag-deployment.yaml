@@ -28,6 +28,9 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.serviceAccount.name }}
+      serviceAccountName: {{ . }}
+      {{- end }}
       containers:
         - name: {{ include "rag.fullname" $ }}-rag
           securityContext:
