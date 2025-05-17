@@ -1,6 +1,11 @@
 # Blue Atlas Helm Charts
-To provide the best possible solutions for our Customers, we use and support many open source projects.
-To install these solutions more easily and streamlining the way we install applications, we maintain Helm-Charts of applications that do not have official Charts. 
+
+> [!WARNING]  
+> This Helm Chart Repo will soon be depricated as a tweaked Version of the Librechat Chart [has been merged into Upstream](https://github.com/danny-avila/LibreChat/pull/3638)
+
+<br />
+<br />
+<br />
 
 ## Breaking Changes
 ### 1.0.0
