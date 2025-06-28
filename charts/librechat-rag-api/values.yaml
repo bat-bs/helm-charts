@@ -3,7 +3,7 @@
 rag:
   enabled: true
   existingSecret: ''
-  envFrom: {}
+  envFrom: [] 
   configEnv:
     DB_PORT: '5432'
     EMBEDDINGS_PROVIDER: openai
