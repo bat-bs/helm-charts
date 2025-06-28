@@ -50,6 +50,9 @@ spec:
           envFrom:
           - configMapRef:
               name: {{ include "rag.fullname" $ }}-config
+          {{- with .Values.rag.envFrom }} 
+          {{ toYaml . | nindent 10 }}
+          {{- end }}
           {{- if .Values.rag.existingSecret }}
           - secretRef:
               name: {{ .Values.rag.existingSecret }}
